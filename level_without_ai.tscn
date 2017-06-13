@@ -1,0 +1,535 @@
+[gd_scene load_steps=26 format=1]
+
+[ext_resource path="res://level.gd" type="Script" id=1]
+[ext_resource path="res://background/ParallaxBackground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://drone/dronegroup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://camera.gd" type="Script" id=4]
+[ext_resource path="res://planet/planet.gd" type="Script" id=5]
+[ext_resource path="res://planet/planet_1.png" type="Texture" id=6]
+[ext_resource path="res://fuel/fuel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://asteroid/asteroid.tscn" type="PackedScene" id=8]
+[ext_resource path="res://minimap/minimap.gd" type="Script" id=9]
+[ext_resource path="res://pixel.png" type="Texture" id=10]
+[ext_resource path="res://drouncount/dronecount.gd" type="Script" id=11]
+[ext_resource path="res://drone/drone.png" type="Texture" id=12]
+[ext_resource path="res://drouncount/smallfont.fnt" type="BitmapFont" id=13]
+[ext_resource path="res://drone/aidrone.png" type="Texture" id=14]
+[ext_resource path="res://formationbtns/formationbtns.gd" type="Script" id=15]
+[ext_resource path="res://formationbtns/buttons.png" type="Texture" id=16]
+[ext_resource path="res://anounce/anounce.tscn" type="PackedScene" id=17]
+
+[sub_resource type="NavigationPolygon" id=1]
+
+vertices = Vector2Array( 6391, 1, 6386, 4771, 1563, 703, 1549, 671, 1562, 739, -59, 4897, 1548, 770, 1519, 787, 1489, 796, 1453, 792, 0, 0, 1424, 776, 1407, 755, 1398, 721, 1402, 690, 1413, 666, 1434, 646, 1533, 651, 1466, 636, 1504, 638 )
+polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 4, 2, 1 ), IntArray( 4, 1, 5, 6 ), IntArray( 7, 6, 5 ), IntArray( 8, 7, 5 ), IntArray( 9, 8, 5 ), IntArray( 9, 5, 10, 11 ), IntArray( 12, 11, 10 ), IntArray( 13, 12, 10 ), IntArray( 14, 13, 10 ), IntArray( 15, 14, 10 ), IntArray( 16, 15, 10 ), IntArray( 0, 3, 17 ), IntArray( 18, 16, 10 ), IntArray( 18, 10, 0, 19 ), IntArray( 19, 0, 17 ) ]
+outlines = [ Vector2Array( 0, 0, 6391, 1, 6386, 4771, -59, 4897 ), Vector2Array( 1434, 646, 1466, 636, 1504, 638, 1533, 651, 1549, 671, 1563, 703, 1562, 739, 1548, 770, 1519, 787, 1489, 796, 1453, 792, 1424, 776, 1407, 755, 1398, 721, 1402, 690, 1413, 666 ) ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 55.0
+
+[sub_resource type="Animation" id=3]
+
+resource/name = "cycle"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("player:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ai:frame")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="AtlasTexture" id=4]
+
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 64, 64 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[sub_resource type="AtlasTexture" id=5]
+
+atlas = ExtResource( 16 )
+region = Rect2( 64, 0, 64, 64 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[sub_resource type="AtlasTexture" id=6]
+
+atlas = ExtResource( 16 )
+region = Rect2( 128, 0, 64, 64 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[sub_resource type="AtlasTexture" id=7]
+
+atlas = ExtResource( 16 )
+region = Rect2( 192, 0, 64, 64 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[sub_resource type="AtlasTexture" id=8]
+
+atlas = ExtResource( 16 )
+region = Rect2( 256, 0, 64, 64 )
+margin = Rect2( 0, 0, 0, 0 )
+
+[node name="level" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 5300.0
+margin/bottom = 4011.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+nxt_level = "res://levels/level_1_2.tscn"
+
+[node name="ParallaxBackground" parent="." instance=ExtResource( 2 )]
+
+[node name="navigation" type="Navigation2D" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="navpoly" type="NavigationPolygonInstance" parent="navigation"]
+
+navpoly = SubResource( 1 )
+enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+editor/display_folded = true
+visibility/behind_parent = true
+transform/pos = Vector2( 416, 238 )
+preserve_state = false
+Start_Drone_Count = 150
+Control_Node_Path = NodePath("..")
+Cycle_Interval = 1.0
+
+[node name="camera" type="Camera2D" parent="player"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = 0
+limit/top = 0
+limit/right = 2000
+limit/bottom = 2000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = true
+smoothing/speed = 5.0
+drag_margin/left = 0.1
+drag_margin/top = 0.1
+drag_margin/right = 0.1
+drag_margin/bottom = 0.1
+script/script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="planetgroup" type="Node2D" parent="."]
+
+editor/display_folded = true
+visibility/behind_parent = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="planet" type="KinematicBody2D" parent="planetgroup"]
+
+transform/pos = Vector2( 1479, 718 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
+mass = 25
+
+[node name="Sprite" type="Sprite" parent="planetgroup/planet"]
+
+transform/pos = Vector2( 5, 14 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="planetgroup/planet"]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="support" type="Node2D" parent="."]
+
+editor/display_folded = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="fuel" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1351, 667 )
+
+[node name="fuel1" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 527, 339 )
+
+[node name="fuel2" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 999, 293 )
+
+[node name="fuel3" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 442, 663 )
+
+[node name="fuel4" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 956, 1055 )
+
+[node name="fuel5" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1842, 376 )
+
+[node name="fuel6" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1394, 1238 )
+
+[node name="fuel7" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 473, 1287 )
+
+[node name="fuel8" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 155, 227 )
+
+[node name="fuel9" parent="support" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 1716, 1201 )
+
+[node name="asteroidgroup" type="Node2D" parent="."]
+
+[node name="asteroid" parent="asteroidgroup" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 1743, -82 )
+
+[node name="hud" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="minimap" type="Control" parent="hud"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 640.0
+margin/top = 0.0
+margin/right = 768.0
+margin/bottom = 128.0
+script/script = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="minimaptimer" type="Timer" parent="hud/minimap"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[node name="Sprite" type="Sprite" parent="hud/minimap"]
+
+visibility/behind_parent = true
+transform/pos = Vector2( -1, 0 )
+transform/scale = Vector2( 128, 129 )
+texture = ExtResource( 10 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite1" type="Sprite" parent="hud/minimap"]
+
+visibility/behind_parent = true
+transform/scale = Vector2( 128, 128 )
+texture = ExtResource( 10 )
+centered = false
+modulate = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="dronecounter" type="Control" parent="hud"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 291.0
+margin/top = 0.0
+margin/right = 477.0
+margin/bottom = 40.0
+script/script = ExtResource( 11 )
+
+[node name="bg1" type="Sprite" parent="hud/dronecounter"]
+
+transform/pos = Vector2( -1, 0 )
+transform/scale = Vector2( 188, 41 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="bg2" type="Sprite" parent="hud/dronecounter"]
+
+transform/scale = Vector2( 186, 40 )
+texture = ExtResource( 10 )
+centered = false
+modulate = Color( 0, 0, 0, 1 )
+
+[node name="player" type="Sprite" parent="hud/dronecounter"]
+
+transform/pos = Vector2( 16, 20 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+vframes = 9
+hframes = 4
+frame = 1
+
+[node name="Label" type="Label" parent="hud/dronecounter"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 26.0
+margin/top = 10.0
+margin/right = 66.0
+margin/bottom = 41.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "x000"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ai" type="Sprite" parent="hud/dronecounter"]
+
+transform/pos = Vector2( 125, 20 )
+transform/scale = Vector2( 2, 2 )
+texture = ExtResource( 14 )
+vframes = 9
+hframes = 4
+frame = 1
+
+[node name="Label 2" type="Label" parent="hud/dronecounter"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 135.0
+margin/top = 10.0
+margin/right = 175.0
+margin/bottom = 41.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "x000"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="hud/dronecounter"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/cycle = SubResource( 3 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "cycle"
+
+[node name="formationbtns" type="ButtonGroup" parent="hud"]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 40.0
+alignment = 0
+script/script = ExtResource( 15 )
+
+[node name="TextureButton" type="TextureButton" parent="hud/formationbtns"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 64.0
+margin/bottom = 64.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = SubResource( 4 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="TextureButton1" type="TextureButton" parent="hud/formationbtns"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 64.0
+margin/right = 64.0
+margin/bottom = 128.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = SubResource( 5 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="TextureButton2" type="TextureButton" parent="hud/formationbtns"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 128.0
+margin/right = 64.0
+margin/bottom = 192.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = SubResource( 6 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="TextureButton3" type="TextureButton" parent="hud/formationbtns"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 192.0
+margin/right = 64.0
+margin/bottom = 256.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = SubResource( 7 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="TextureButton4" type="TextureButton" parent="hud/formationbtns"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 256.0
+margin/right = 64.0
+margin/bottom = 320.0
+toggle_mode = true
+click_on_press = true
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = SubResource( 8 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="anouncelayer" type="CanvasLayer" parent="."]
+
+editor/display_folded = true
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="anounce" parent="anouncelayer" instance=ExtResource( 17 )]
+
+msg = "Mission 1
+Wave 1"
+
+[node name="Timer" type="Timer" parent="anouncelayer"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = true
+autostart = false
+
+[connection signal="input_event" from="." to="." method="_on_level_input_event"]
+
+[connection signal="timeout" from="hud/minimap/minimaptimer" to="hud/minimap" method="_on_minimaptimer_timeout"]
+
+[connection signal="pressed" from="hud/formationbtns/TextureButton" to="hud/formationbtns" method="_on_TextureButton_pressed"]
+
+[connection signal="pressed" from="hud/formationbtns/TextureButton1" to="hud/formationbtns" method="_on_TextureButton1_pressed"]
+
+[connection signal="pressed" from="hud/formationbtns/TextureButton2" to="hud/formationbtns" method="_on_TextureButton2_pressed"]
+
+[connection signal="pressed" from="hud/formationbtns/TextureButton3" to="hud/formationbtns" method="_on_TextureButton3_pressed"]
+
+[connection signal="pressed" from="hud/formationbtns/TextureButton4" to="hud/formationbtns" method="_on_TextureButton4_pressed"]
+
+

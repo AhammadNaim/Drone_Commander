@@ -1,0 +1,26 @@
+[gd_resource type="CanvasItemMaterial" load_steps=3 format=1]
+
+[ext_resource path="res://background/far_field.png" type="Texture" id=1]
+
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = {
+"fragment": "uniform texture bg_texture;
+uniform float speed = 0.01;
+vec2 new_uv = vec2(fract(UV.x + TIME * speed ),fract(UV.y));
+COLOR.rgb = tex( bg_texture, new_uv ).rgb;
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "",
+"vertex_ofs": 0
+}
+
+[resource]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+shader_param/bg_texture = ExtResource( 1 )
+shader_param/speed = 0.005
+

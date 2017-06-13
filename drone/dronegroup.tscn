@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://drone/dronegroup.gd" type="Script" id=1]
+
+[node name="dronegroup" type="Node2D"]
+
+script/script = ExtResource( 1 )
+Type = 0
+Start_Drone_Count = 10
+Control_Node_Path = ""
+
+

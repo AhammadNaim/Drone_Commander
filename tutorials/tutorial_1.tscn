@@ -1,0 +1,364 @@
+[gd_scene load_steps=14 format=1]
+
+[ext_resource path="res://tutorials/tutorial.gd" type="Script" id=1]
+[ext_resource path="res://background/moving_bg_shader.tres" type="CanvasItemMaterial" id=2]
+[ext_resource path="res://background/far_field.png" type="Texture" id=3]
+[ext_resource path="res://planet/planet_1.png" type="Texture" id=4]
+[ext_resource path="res://drouncount/smallfont_godot.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://drone/drone.png" type="Texture" id=6]
+[ext_resource path="res://drone/energybar.png" type="Texture" id=7]
+[ext_resource path="res://drone/aidrone.png" type="Texture" id=8]
+[ext_resource path="res://pixel.png" type="Texture" id=9]
+[ext_resource path="res://fuel/fuel.png" type="Texture" id=10]
+[ext_resource path="res://IteratingLabel.tscn" type="PackedScene" id=11]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "cycle"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "cycle"
+length = 0.4
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": FloatArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[node name="tutorial_1" type="Control"]
+
+process/pause_mode = 2
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 768.0
+margin/bottom = 450.0
+script/script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+nxt_scene = "res://levels/level_1_1.tscn"
+songname = "res://music/Juhani Junkala [Retro Game Music Pack] Level 1.ogg"
+
+[node name="Sprite 2" type="Sprite" parent="."]
+
+material/material = ExtResource( 2 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Sprite" type="Sprite" parent="Sprite 2"]
+
+transform/pos = Vector2( 107, 338 )
+texture = ExtResource( 4 )
+flip_h = true
+
+[node name="title" type="Label" parent="."]
+
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 385.0
+margin/bottom = 36.0
+custom_fonts/font = ExtResource( 5 )
+text = "Mission 1
+"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 531, 256 )
+transform/scale = Vector2( 4, 4 )
+texture = ExtResource( 6 )
+vframes = 9
+hframes = 4
+frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/cycle = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "cycle"
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( 0, -6.25 )
+texture = ExtResource( 7 )
+modulate = Color( 1, 0, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite1" type="Sprite" parent="Sprite"]
+
+transform/pos = Vector2( 0, -8.25 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ai" type="Sprite" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 712, 51 )
+transform/scale = Vector2( 4, 4 )
+texture = ExtResource( 8 )
+vframes = 9
+hframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ai"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/cycle = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "cycle"
+
+[node name="Sprite2" type="Sprite" parent="ai"]
+
+transform/pos = Vector2( 0.5, -7.25 )
+texture = ExtResource( 7 )
+modulate = Color( 1, 0, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2 2" type="Sprite" parent="ai"]
+
+transform/pos = Vector2( 0.5, -9.25 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label1" type="Label" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 593.0
+margin/top = 143.0
+margin/right = 670.0
+margin/bottom = 179.0
+custom_fonts/font = ExtResource( 5 )
+text = "attack
+range
+"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite3" type="Sprite" parent="Label1"]
+
+transform/pos = Vector2( -21, 89 )
+transform/rot = 27.2967
+transform/scale = Vector2( 200, 1 )
+texture = ExtResource( 9 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite 2" type="Sprite" parent="Label1"]
+
+transform/pos = Vector2( -40, 73 )
+transform/rot = 70.9443
+transform/scale = Vector2( 200, 1 )
+texture = ExtResource( 9 )
+centered = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label2" type="Label" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 323.0
+margin/top = 158.0
+margin/right = 400.0
+margin/bottom = 194.0
+custom_fonts/font = ExtResource( 5 )
+text = "shields
+"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite5" type="Sprite" parent="Label2"]
+
+transform/pos = Vector2( 78, 14 )
+transform/rot = -27.3
+transform/scale = Vector2( 100, 1 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="Label3" type="Label" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 340.0
+margin/top = 269.0
+margin/right = 417.0
+margin/bottom = 305.0
+custom_fonts/font = ExtResource( 5 )
+text = "fuel
+"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite4" type="Sprite" parent="Label3"]
+
+transform/pos = Vector2( 62, 10 )
+transform/rot = 27.2967
+transform/scale = Vector2( 100, 1 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="fuellabel" type="Label" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 546.0
+margin/top = 296.0
+margin/right = 755.0
+margin/bottom = 345.0
+custom_fonts/font = ExtResource( 5 )
+text = "hover on these 
+for 1 second
+to charge the drones
+"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Sprite5" type="Sprite" parent="fuellabel"]
+
+transform/pos = Vector2( 73, 44 )
+transform/rot = -134.823
+transform/scale = Vector2( 60, 1 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="fuel" type="Sprite" parent="fuellabel"]
+
+transform/pos = Vector2( -10, 110 )
+transform/scale = Vector2( 4, 4 )
+texture = ExtResource( 10 )
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="fuellabel/fuel"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/cycle = SubResource( 2 )
+playback/active = true
+playback/speed = 0.3
+blend_times = [  ]
+autoplay = "cycle"
+
+[node name="IteratingLabel" parent="." instance=ExtResource( 11 )]
+
+margin/left = 18.0
+margin/top = 51.0
+margin/right = 58.0
+margin/bottom = 65.0
+custom_fonts/font = ExtResource( 5 )
+text = "Welcome commander.
+
+
+For this mission, you outnumber the enemy.
+So your strategy should be based on short 
+maneuvering to confuse the enemy drones
+
+We cannot send reinforcements 
+along the mission. Preserve 
+your drones to survive the 
+3 enemy waves.
+
+
+Good Luck!"
+text = "Welcome commander.
+
+
+For this mission, you outnumber the enemy.
+So your strategy should be based on short 
+maneuvering to confuse the enemy drones
+
+We cannot send reinforcements 
+along the mission. Preserve 
+your drones to survive the 
+3 enemy waves.
+
+
+Good Luck!"
+speed = 0.025
+
+[connection signal="input_event" from="." to="." method="_on_tutorial_1_input_event"]
+
+
